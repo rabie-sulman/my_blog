@@ -4,6 +4,7 @@ export $(shell sed 's/=.*//' .env)
 
 RED=\033[0;31m
 NOCOLOUR=\033[0m
+PACK=null
 
 .PHONY: init-symfony
 init-symfony:
@@ -33,3 +34,21 @@ start:
 .PHONY: start
 rebuild-and-start:
 	docker-compose up --build -d
+
+.PHONY: require
+require:
+	if [ "$(PACK)" = "null" ]; then \
+		printf "$(RED)Package needs to be passed as argument: PACK \n" ; \
+	else \
+		printf "Package: $(RED) <$(PACK)> $(NOCOLOUR) is being required \n" ; \
+		docker-compose run --rm php composer require $(PACK); \
+	fi
+
+.PHONY: remove
+remove:
+	if [ "$(PACK)" = "null" ]; then \
+		printf "$(RED)Package needs to be passed as argument: PACK \n" ; \
+	else \
+		printf "Package: $(RED) <$(PACK)> $(NOCOLOUR)is being removed \n" ; \
+		docker-compose run --rm php composer remove $(PACK); \
+	fi
