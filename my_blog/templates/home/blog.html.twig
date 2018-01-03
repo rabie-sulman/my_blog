@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if articles is empty %}
+    <div>
+        No blog posts
+    </div>
+{% else %}
+    {% for article in articles %}
+        <div>
+            <a href="{{ path('blog_post', {'id': article.id}) }}">{{article.shortText}}</a>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
+
