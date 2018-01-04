@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if article is empty %}
+    <div>
+        Blog post doesn't exists
+    </div>
+{% else %}
+    <div>
+        {{article.text}}
+    </div>
+{% endif %}
+
+{% endblock %}
+

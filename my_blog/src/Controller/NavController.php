@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class NavController extends Controller
 {
     /**
-     * @Route("/", name="welcome")
+     * @Route("/", name="nav_welcome")
      */
     public function home()
     {
@@ -16,9 +16,9 @@ class NavController extends Controller
     }
 
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/blog", name="nav_blog_all", methods={"GET"})
      */
-    public function blog()
+    public function blogGetAll()
     {
         return $this->render('home/blog.html.twig', [
             'articles' => $this->container->get('app.repo.article')->findAll()
