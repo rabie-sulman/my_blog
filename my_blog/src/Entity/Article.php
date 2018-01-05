@@ -33,4 +33,25 @@ class Article
 
         return $this;
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortText()
+    {
+        return $this->shortText;
+    }
 }
