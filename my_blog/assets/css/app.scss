@@ -1,0 +1,13 @@
+$font-family: verdana;
+$color: #2196F3;
+
+.posts {
+  font-family: $font-family;
+  color: $color;
+  font-size: 20px;
+}
+.header {
+  @extend .posts;
+  color: darken($color, 20%);
+  font-size: 40px;
+}

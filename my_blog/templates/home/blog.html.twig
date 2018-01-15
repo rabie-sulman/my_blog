@@ -7,7 +7,7 @@
 {% else %}
     {% for article in articles %}
         <div>
-            <a href="{{ path('blog_post', {'id': article.id}) }}">{{article.shortText}}</a>
+            <a class="posts" href="{{ path('blog_post', {'id': article.id}) }}">{{article.shortText}}</a>
         </div>
     {% endfor %}
 {% endif %}
