@@ -16,7 +16,6 @@ services:
       - local-network
   db:
     image: mariadb:latest
-    user: mysql
     ports:
       - 3306
     volumes:

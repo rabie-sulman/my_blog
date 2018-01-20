@@ -14,14 +14,14 @@ all:
 .PHONY: usage
 usage: 
 	@printf "$(GREEN)usage:\n" ;
-	@printf "$(GREEN)init-symfony: $(NOCOLOUR) initialise a Symfony project\n" ;
-	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR) initialise a Symfony front end Encore and installs Assets\n" ;
-	@printf "$(GREEN)start: $(NOCOLOUR) starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
-	@printf "$(GREEN)stop: $(NOCOLOUR) stops the docker containers in the $(GREEN)docker-compose.yml \n" ;
-	@printf "$(GREEN)rebuild-and-start: $(NOCOLOUR) rebuilds and starts the docker containers in the $(GREEN)docker-compose.yml \n" ;
-	@printf "$(GREEN)sy-require PACK=package-name $(NOCOLOUR): run composer require inside the php container\n" ;
-	@printf "$(GREEN)sy-remove PACK=package-name $(NOCOLOUR): run composer remove inside the php container\n" ;
-	@printf "$(GREEN)sy-run C=cache:clear $(NOCOLOUR):run the symfony console inside the php container\n" ;
+	@printf "$(GREEN)init-symfony: $(NOCOLOUR)initialise a Symfony project\n" ;
+	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR)initialise a Symfony front end Encore and installs Assets\n" ;
+	@printf "$(GREEN)start: $(NOCOLOUR)starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
+	@printf "$(GREEN)stop: $(NOCOLOUR)stops the docker containers in the $(GREEN)docker-compose.yml \n" ;
+	@printf "$(GREEN)build-containers: $(NOCOLOUR)builds/rebuilds the docker containers in the $(GREEN)docker-compose.yml$(NOCOLOUR) and $(GREEN)docker-compose-dev.yml $(NOCOLOUR)\n" ;
+	@printf "$(GREEN)sy-require PACK=package-name$(NOCOLOUR): run composer require inside the tools container\n" ;
+	@printf "$(GREEN)sy-remove PACK=package-name$(NOCOLOUR): run composer remove inside the tools container\n" ;
+	@printf "$(GREEN)sy-run C=cache:clear$(NOCOLOUR): run the symfony console inside the tools container\n" ;
 
 .PHONY: init-symfony
 init-symfony:
@@ -54,8 +54,9 @@ stop:
 	docker-compose stop
 
 .PHONY: rebuild-and-start
-rebuild-and-start:
-	docker-compose up --build -d
+build-containers:
+	docker-compose -f docker-compose-dev.yml build
+	docker-compose build
 
 .PHONY: require
 sy-require:
@@ -63,7 +64,7 @@ sy-require:
 		printf "$(RED)Package needs to be passed as argument: PACK \n" ; \
 	else \
 		printf "Package: $(RED) <$(PACK)> $(NOCOLOUR) is being required \n" ; \
-		docker-compose run --rm php composer require $(PACK); \
+		docker-compose -f docker-compose-dev.yml run --rm tools composer require $(PACK); \
 	fi
 
 .PHONY: remove
@@ -72,10 +73,10 @@ sy-remove:
 		printf "$(RED)Package needs to be passed as argument: PACK \n" ; \
 	else \
 		printf "Package: $(RED) <$(PACK)> $(NOCOLOUR)is being removed \n" ; \
-		docker-compose run --rm php composer remove $(PACK); \
+		docker-compose -f docker-compose-dev.yml run --rm tools composer remove $(PACK); \
 	fi
 
 .PHONY: sy-run
 sy-run:
 	@printf "Running Symfony command: <$(RED)$(C)$(NOCOLOUR)> \n" ; \
-	docker-compose run --rm php bin/console $(C); \
+	docker-compose -f docker-compose-dev.yml run --rm tools bin/console $(C); \
