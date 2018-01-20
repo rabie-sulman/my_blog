@@ -14,6 +14,7 @@ all:
 .PHONY: usage
 usage: 
 	@printf "$(GREEN)usage:\n" ;
+<<<<<<< HEAD
 	@printf "$(GREEN)init-symfony: $(NOCOLOUR)initialise a Symfony project\n" ;
 	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR)initialise a Symfony front end Encore and installs Assets\n" ;
 	@printf "$(GREEN)start: $(NOCOLOUR)starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
@@ -22,6 +23,17 @@ usage:
 	@printf "$(GREEN)sy-require PACK=package-name$(NOCOLOUR): run composer require inside the tools container\n" ;
 	@printf "$(GREEN)sy-remove PACK=package-name$(NOCOLOUR): run composer remove inside the tools container\n" ;
 	@printf "$(GREEN)sy-run C=cache:clear$(NOCOLOUR): run the symfony console inside the tools container\n" ;
+=======
+	@printf "$(GREEN)init-symfony: $(NOCOLOUR) initialise a Symfony project\n" ;
+	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR) initialise a Symfony front end Encore and installs Assets\n" ;
+	@printf "$(GREEN)start: $(NOCOLOUR) starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
+	@printf "$(GREEN)stop: $(NOCOLOUR) stops the docker containers in the $(GREEN)docker-compose.yml \n" ;
+	@printf "$(GREEN)rebuild-and-start: $(NOCOLOUR) rebuilds and starts the docker containers in the $(GREEN)docker-compose.yml \n" ;
+	@printf "$(GREEN)sy-require PACK=package-name $(NOCOLOUR): run composer require inside the php container\n" ;
+	@printf "$(GREEN)sy-remove PACK=package-name $(NOCOLOUR): run composer remove inside the php container\n" ;
+	@printf "$(GREEN)sy-run C=cache:clear $(NOCOLOUR):run the symfony console inside the php container\n" ;
+	@printf "$(GREEN)run C=\"some command\" $(NOCOLOUR):run the command inside the tools container\n" ;
+>>>>>>> 86432fc0765317cf39ff6c58255b753e81aef1e0
 
 .PHONY: init-symfony
 init-symfony:
@@ -34,7 +46,7 @@ init-symfony:
 	fi;
 
 .PHONY: init-symfony-encore
-init-symfony-front:
+init-symfony-encore:
 	@if [ ! -d "../$(APP_NAME)" ]; then \
 		make init-symfony; \
 	fi
@@ -80,3 +92,12 @@ sy-remove:
 sy-run:
 	@printf "Running Symfony command: <$(RED)$(C)$(NOCOLOUR)> \n" ; \
 	docker-compose -f docker-compose-dev.yml run --rm tools bin/console $(C); \
+
+.PHONY: run
+run:
+	@if [ "$(C)" = "" ]; then \
+		printf "$(RED)To run a command in the container, you needs to pass as argument: C \n" ; \
+	else \
+		printf "Running the command: <$(RED)$(C)$(NOCOLOUR)> \n" ; \
+		docker-compose -f docker-compose-dev.yml run --rm tools $(C); \
+	fi
