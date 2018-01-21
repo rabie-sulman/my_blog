@@ -14,16 +14,6 @@ all:
 .PHONY: usage
 usage: 
 	@printf "$(GREEN)usage:\n" ;
-<<<<<<< HEAD
-	@printf "$(GREEN)init-symfony: $(NOCOLOUR)initialise a Symfony project\n" ;
-	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR)initialise a Symfony front end Encore and installs Assets\n" ;
-	@printf "$(GREEN)start: $(NOCOLOUR)starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
-	@printf "$(GREEN)stop: $(NOCOLOUR)stops the docker containers in the $(GREEN)docker-compose.yml \n" ;
-	@printf "$(GREEN)build-containers: $(NOCOLOUR)builds/rebuilds the docker containers in the $(GREEN)docker-compose.yml$(NOCOLOUR) and $(GREEN)docker-compose-dev.yml $(NOCOLOUR)\n" ;
-	@printf "$(GREEN)sy-require PACK=package-name$(NOCOLOUR): run composer require inside the tools container\n" ;
-	@printf "$(GREEN)sy-remove PACK=package-name$(NOCOLOUR): run composer remove inside the tools container\n" ;
-	@printf "$(GREEN)sy-run C=cache:clear$(NOCOLOUR): run the symfony console inside the tools container\n" ;
-=======
 	@printf "$(GREEN)init-symfony: $(NOCOLOUR) initialise a Symfony project\n" ;
 	@printf "$(GREEN)init-symfony-front: $(NOCOLOUR) initialise a Symfony front end Encore and installs Assets\n" ;
 	@printf "$(GREEN)start: $(NOCOLOUR) starts the docker dev env from the $(GREEN)docker-compose.yml \n" ;
@@ -33,7 +23,6 @@ usage:
 	@printf "$(GREEN)sy-remove PACK=package-name $(NOCOLOUR): run composer remove inside the php container\n" ;
 	@printf "$(GREEN)sy-run C=cache:clear $(NOCOLOUR):run the symfony console inside the php container\n" ;
 	@printf "$(GREEN)run C=\"some command\" $(NOCOLOUR):run the command inside the tools container\n" ;
->>>>>>> 86432fc0765317cf39ff6c58255b753e81aef1e0
 
 .PHONY: init-symfony
 init-symfony:
