@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@symfony/webpack-encore": "^0.17.1"
+    "@symfony/webpack-encore": "^0.33.0"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
